@@ -1,0 +1,29 @@
+# Compiled output — the multi-stage build produces its own target/ inside the container.
+target/
+
+# IDE and editor project files.
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+
+# OS metadata.
+.DS_Store
+Thumbs.db
+
+# Log files.
+*.log
+logs/
+
+# Git history — not needed inside the image.
+.git/
+.gitignore
+
+# Local environment overrides — never bake credentials into the image.
+.env
+*.env
+
+# README and documentation.
+README.md
+CHANGELOG.md
+docs/

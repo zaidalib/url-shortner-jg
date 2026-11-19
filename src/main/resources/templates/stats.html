@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="'Stats: ' + ${mapping.code} + ' — LinkSnip'">Stats — LinkSnip</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    <style>
+        body { background-color: #f8f9fa; }
+        .brand-title { font-weight: 700; letter-spacing: -0.5px; }
+        .stat-value { font-size: 2.5rem; font-weight: 700; line-height: 1; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand brand-title" href="/"><i class="bi bi-link-45deg"></i> LinkSnip</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-bar-chart-line me-2 text-primary"></i>
+                        Link stats:
+                        <span class="text-primary fw-semibold" th:text="${mapping.code}"></span>
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+
+                    <!-- Click counter hero -->
+                    <div class="text-center mb-4 py-3 border rounded bg-light">
+                        <div class="stat-value text-primary" th:text="${mapping.clickCount}">0</div>
+                        <div class="text-muted mt-1">total clicks</div>
+                    </div>
+
+                    <!-- Details table -->
+                    <dl class="row">
+                        <dt class="col-sm-4 text-muted">Original URL</dt>
+                        <dd class="col-sm-8 text-break">
+                            <a th:href="${mapping.originalUrl}" th:text="${mapping.originalUrl}"
+                               target="_blank" rel="noopener noreferrer"
+                               class="text-decoration-none"></a>
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted">Short code</dt>
+                        <dd class="col-sm-8">
+                            <code th:text="${mapping.code}"></code>
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted">Created</dt>
+                        <dd class="col-sm-8"
+                            th:text="${#temporals.format(mapping.createdAt, 'dd MMM yyyy, HH:mm')}"></dd>
+
+                        <dt class="col-sm-4 text-muted">Expires</dt>
+                        <dd class="col-sm-8"
+                            th:text="${mapping.expiresAt != null
+                                ? #temporals.format(mapping.expiresAt, 'dd MMM yyyy, HH:mm')
+                                : 'Never'}"></dd>
+
+                        <dt class="col-sm-4 text-muted">Last clicked</dt>
+                        <dd class="col-sm-8"
+                            th:text="${mapping.lastClickedAt != null
+                                ? #temporals.format(mapping.lastClickedAt, 'dd MMM yyyy, HH:mm')
+                                : '—'}"></dd>
+                    </dl>
+
+                    <div class="d-flex gap-2 flex-wrap mt-2">
+                        <a th:href="@{'/' + ${mapping.code}}" class="btn btn-primary"
+                           target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Open link
+                        </a>
+                        <a href="/" class="btn btn-outline-secondary">
+                            <i class="bi bi-house me-1"></i> Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmUn/0EUqSnnKZXfv5kiAhXTtPE"
+        crossorigin="anonymous"></script>
+</body>
+</html>
